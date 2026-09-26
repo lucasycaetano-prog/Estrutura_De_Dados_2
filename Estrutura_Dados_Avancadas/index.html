@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Tree Delivery — Busca em ABB</title>
+<style>
+*{box-sizing:border-box} body{font-family:Arial,sans-serif;background:#f4f6f8;margin:0;padding:24px;color:#17202a}.app{max-width:850px;margin:auto;background:white;padding:28px;border-radius:16px;box-shadow:0 8px 30px #0002}h1{margin:0 0 6px}.sub{color:#5d6d7e}.painel{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}.card{padding:18px;border:1px solid #dde3e8;border-radius:12px}.label{font-size:13px;color:#6c7a89}.valor{font-size:34px;font-weight:bold;margin-top:5px}.botoes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}.botoes button,#novo{padding:14px;border:0;border-radius:10px;font-weight:bold;cursor:pointer;font-size:15px}.botoes button{background:#e9eef3}.botoes button:hover,#novo:hover{filter:brightness(.96)}#novo{background:#17202a;color:white}.feedback{margin:16px 0;padding:15px;background:#f1f5f9;border-radius:10px;min-height:52px}.status{display:flex;gap:18px;flex-wrap:wrap;font-size:14px}.arvore{margin-top:22px;background:#111827;color:#f9fafb;padding:18px;border-radius:10px;overflow:auto;white-space:pre;font-family:Consolas,monospace;line-height:1.45}.regras{margin-top:18px;border-top:1px solid #ddd;padding-top:15px;line-height:1.6}@media(max-width:650px){.painel,.botoes{grid-template-columns:1fr}}
+</style>
+</head><body><main class="app">
+<h1>🚚 Tree Delivery</h1><p class="sub">Encontre o código da entrega usando uma Árvore Binária de Busca (ABB).</p>
+<section class="painel"><div class="card"><div class="label">Entrega procurada</div><div class="valor" id="alvo">60</div></div><div class="card"><div class="label">Nó atual</div><div class="valor" id="atual">50</div></div></section>
+<div class="botoes"><button onclick="escolher('esquerda')">← Esquerda</button><button onclick="escolher('igual')">📦 É esta!</button><button onclick="escolher('direita')">Direita →</button></div>
+<div class="feedback" id="feedback">Compare o código procurado com o nó atual e escolha o caminho correto.</div>
+<div class="status"><span id="passos">Passos: 0</span><span id="erros">Erros: 0</span><span id="caminho">Caminho: 50</span></div>
+<div style="margin-top:14px"><button id="novo" onclick="novoJogo()">Nova entrega</button></div>
+<div class="arvore">                    50
+                  /    \
+                30      70
+               /  \    /  \
+             20   40  60   80</div>
+<div class="regras"><strong>Regra da ABB:</strong> códigos menores seguem para a esquerda; maiores seguem para a direita. Se o código for igual ao nó atual, a entrega foi encontrada.</div>
+</main><script>
+const arvore={50:{esquerda:30,direita:70},30:{esquerda:20,direita:40},70:{esquerda:60,direita:80},20:{esquerda:null,direita:null},40:{esquerda:null,direita:null},60:{esquerda:null,direita:null},80:{esquerda:null,direita:null}};
+const alvos=[20,30,40,50,60,70,80]; let alvo=60,atual=50,passos=0,erros=0,caminho=[50],terminou=false;
+function atualizar(){document.getElementById('alvo').textContent=alvo;document.getElementById('atual').textContent=atual;document.getElementById('passos').textContent='Passos: '+passos;document.getElementById('erros').textContent='Erros: '+erros;document.getElementById('caminho').textContent='Caminho: '+caminho.join(' → ')}
+function escolher(op){if(terminou)return;let correta=alvo===atual?'igual':alvo<atual?'esquerda':'direita';if(op!==correta){erros++;document.getElementById('feedback').textContent='❌ Decisão incorreta. Lembre: menor → esquerda, maior → direita, igual → entrega encontrada.';atualizar();return}passos++;if(op==='igual'){terminou=true;document.getElementById('feedback').textContent='✅ Entrega '+alvo+' encontrada! Caminho: '+caminho.join(' → ')+'.';atualizar();return}let prox=arvore[atual][op];if(prox===null){terminou=true;document.getElementById('feedback').textContent='Busca encerrada: não existe entrega nesse caminho.';return}atual=prox;caminho.push(atual);document.getElementById('feedback').textContent='✅ Correto! Continue a busca a partir do nó '+atual+'.';atualizar()}
+function novoJogo(){alvo=alvos[Math.floor(Math.random()*alvos.length)];atual=50;passos=0;erros=0;caminho=[50];terminou=false;document.getElementById('feedback').textContent='Nova entrega gerada. Compare o alvo com o nó atual.';atualizar()} atualizar();
+</script></body></html>
