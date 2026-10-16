@@ -4,7 +4,7 @@
 **Aluno:** Lucas Yan Santana Caetano  
 **Turma:** ____________________  
 **Data:** 16/10/2026  
-**Disciplina:** Algoritmos / Matemática Discreta / Ciência de Dados
+**Disciplina:** ESTRUTURA DE DADOS 2
 
 ## 1. O desafio
 
