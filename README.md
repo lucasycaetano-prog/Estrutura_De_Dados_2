@@ -2,7 +2,7 @@
 
 Disciplina: Estrutura de Dados II — Ciência da Computação
 Estudo de caso motivador: pane relacionada ao GPS no Aeroporto de Brasília (G1, 22 set. 2026).
-
+Nome: Lucas Yan Santana Caetano
 > **Aviso:** simulação computacional didática. As conexões são fictícias e o programa não serve para orientar voos reais.
 
 ## Problema e objetivo
